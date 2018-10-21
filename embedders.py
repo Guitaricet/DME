@@ -12,7 +12,7 @@ from __future__ import unicode_literals
 
 import os
 import codecs
-import cPickle as pickle
+import pickle
 
 import torch
 import torch.nn as nn

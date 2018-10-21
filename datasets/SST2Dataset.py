@@ -11,8 +11,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import csv
+import sys
 
 from torchtext import data
+
+csv.field_size_limit(sys.maxsize)
 
 
 class SST2Dataset(data.TabularDataset):
@@ -25,7 +29,7 @@ class SST2Dataset(data.TabularDataset):
         return len(ex.text)
 
     @classmethod
-    def splits(cls, text_field, label_field, root, train='train.csv', validation='vaild.csv',
+    def splits(cls, text_field, label_field, root, train='train.csv', validation='valid.csv',
                test='test.csv'):
         path = os.path.join(root, cls.name, cls.dirname)
         fields = {'label': ('label', label_field), 'text': ('both', text_field)}
