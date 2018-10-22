@@ -210,12 +210,11 @@ def main():
             logger.info('No more improvements.. reverting to best validation model')
             task.model.load_state_dict(best_model)
 
-            if hasattr(test_iter.dataset, 'has_labels') and not test_iter.dataset.has_labels:
-                _, final_stats = task.evaluate(dev_iter, 'valid', epoch)
-                _, _ = task.evaluate(test_iter, 'test', epoch)
-            else:
-                _, final_stats = task.evaluate(test_iter, 'test', epoch)
-
+            # if hasattr(test_iter.dataset, 'has_labels') and not test_iter.dataset.has_labels:
+            _, final_stats_dev = task.evaluate(dev_iter, 'valid', epoch)
+            _, final_stats_test = task.evaluate(test_iter, 'test', epoch)
+            logger.info('Dev metrics: %s' % final_stats_dev)
+            logger.info('Test metircs: %s' % final_stats_test)
             break
 
         task.scheduler.step(dev_score)
